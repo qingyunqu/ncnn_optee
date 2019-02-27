@@ -5,6 +5,8 @@
 
 #include "batchnorm.h"
 
+#include "teec.h"
+
 namespace ncnn {
 
 class BatchNorm_teec : public BatchNorm

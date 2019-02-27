@@ -103,7 +103,7 @@ if(NOT ANDROID AND NOT IOS)
 endif()
 
 set (SRC benchncnn.cpp)
-set (PROJECT_NAME benchncnn)
+# set (PROJECT_NAME benchncnn)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
 add_executable (${PROJECT_NAME} ${SRC})

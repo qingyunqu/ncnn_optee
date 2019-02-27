@@ -35,7 +35,7 @@
 /* To get the TA UUID definition */
 #include <ncnn_ta.h>
 
-#define TA_UUID				TA_HELLO_WORLD_UUID
+#define TA_UUID				TA_NCNN_UUID
 
 /*
  * TA properties: multi-instance TA, no specific attribute
@@ -52,7 +52,7 @@
 /* Extra properties (give a version id and a string name) */
 #define TA_CURRENT_TA_EXT_PROPERTIES \
     { "gp.ta.description", USER_TA_PROP_TYPE_STRING, \
-        "Example of OP-TEE Hello World Trusted Application" }, \
+        "Example of OP-TEE ncnn Trusted Application" }, \
     { "gp.ta.version", USER_TA_PROP_TYPE_U32, &(const uint32_t){ 0x0010 } }
 
 #endif /* USER_TA_HEADER_DEFINES_H */

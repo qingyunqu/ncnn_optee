@@ -157,6 +157,10 @@ configure_file(layer_registry.h.in ${CMAKE_CURRENT_BINARY_DIR}/layer_registry.h)
 configure_file(layer_type_enum.h.in ${CMAKE_CURRENT_BINARY_DIR}/layer_type_enum.h)
 
 add_library(ncnn STATIC ${ncnn_SRCS})
+# link teec lib
+include_directories(../ta/include
+				 	../include)
+target_link_libraries(ncnn teec)
 
 if(NCNN_OPENMP AND OpenMP_CXX_FOUND)
     if(NCNN_CMAKE_VERBOSE)
