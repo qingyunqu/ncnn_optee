@@ -47,6 +47,12 @@ macro(ncnn_add_layer class)
         else()
             set(arch x86)
         endif()
+
+		# option teec
+		if(NCNN_TEEC)
+			set(arch teec)
+		endif()
+		
         set(LAYER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/layer/${arch}/${name}_${arch}.cpp)
         if(EXISTS ${LAYER_SRC})
             set(WITH_LAYER_${name}_${arch} 1)

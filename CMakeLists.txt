@@ -34,6 +34,10 @@ option(NCNN_PIXEL "convert and resize from/to image pixel" ON)
 option(NCNN_PIXEL_ROTATE "rotate image pixel orientation" OFF)
 option(NCNN_CMAKE_VERBOSE "print verbose cmake messages" OFF)
 
+# teec option
+option(NCNN_TEEC "run ncnn forward on optee client and optee os" ON)
+
+
 if(NCNN_OPENMP)
     find_package(OpenMP)
     # For CMake < 3.9, we need to make the target ourselves

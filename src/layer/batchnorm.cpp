@@ -13,6 +13,7 @@
 // specific language governing permissions and limitations under the License.
 
 #include "batchnorm.h"
+
 #include <math.h>
 
 namespace ncnn {
@@ -73,7 +74,7 @@ int BatchNorm::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
     // a = bias - slope * mean / sqrt(var)
     // b = slope / sqrt(var)
     // value = b * value + a
-
+	
     int dims = bottom_top_blob.dims;
 
     if (dims == 1)
