@@ -1,6 +1,19 @@
-//teec
+//something useful for implement teec layer
 #ifndef TEEC_H
 #define TEEC_H
+
+#include "mat.h"
+#include "teec_ta_defines.h"
+namespace ncnn {
+void init_mat_c_from_mat(Mat_C* mat_c,Mat& mat){
+	mat_c->elemsize = mat.elemsize;
+	mat_c->dims = mat.dims;
+	mat_c->w = mat.w;
+	mat_c->h = mat.h;
+	mat_c->c = mat.c;
+	mat_c->cstep = mat.cstep;
+}
+} // namespace ncnn
 
 #ifdef __cplusplus
 extern "C"{
