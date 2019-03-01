@@ -3,6 +3,7 @@
 #ifndef TEEC_TA_DEFINES_H
 #define TEEC_TA_DEFINES_H
 
+#include <stddef.h>
 
 typedef struct {
 	size_t elemsize;
@@ -17,12 +18,8 @@ typedef struct {
 
 // see init_mat_c_from_mat() in "teec.h"
 
-float* row(void* data, Mat_C* mat, int y){  // only support float32
-	return (float*)data + mat->w * y;
-}
-float* channel(void* data, Mat_C* mat, int c){ // only support float32
-	return (float*)data + mat->cstep * c;
-}
+float* row(void* data, Mat_C* mat, int y);  // only support float32
+float* channel(void* data, Mat_C* mat, int c); // only support float32
 
 
 #endif // TEEC_TA_DEFINES_H

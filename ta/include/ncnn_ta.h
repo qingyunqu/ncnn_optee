@@ -38,6 +38,7 @@
 
 /* The function IDs implemented in this TA */
 #define TA_BATCHNORM		0
-#define TA_OTHER_LAYER		1
+#define TA_POOLING			1
+#define TA_OTHER_LAYER		2
 
 #endif /*TA_HELLO_WORLD_H*/

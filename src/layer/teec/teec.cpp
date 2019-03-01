@@ -3,7 +3,7 @@
 #include "teec.h"
 
 namespace ncnn {
-void init_mat_c_from_mat(Mat_C* mat_c, Mat& mat){
+void init_mat_c_from_mat(Mat_C* mat_c, const Mat& mat){
 	mat_c->elemsize = mat.elemsize;
 	mat_c->dims = mat.dims;
 	mat_c->w = mat.w;

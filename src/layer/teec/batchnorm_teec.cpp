@@ -50,8 +50,9 @@ int BatchNorm_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) con
 	op.params[3].tmpref.size = sizeof(bnp);
 
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_BATCHNORM,&op,&origin);
-	if(res != TEEC_SUCCESS)
-		return -100;
+	//if(res != TEEC_SUCCESS)
+	//	return -100;
+
 	//terminate_tee_session(&ctx);
 	
 	//return BatchNorm::forward_inplace(bottom_top_blob, opt);

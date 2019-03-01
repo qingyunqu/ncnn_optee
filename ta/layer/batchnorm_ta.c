@@ -1,6 +1,5 @@
 #include "layer.h"
 #include "batchnorm_teec_ta_defines.h"
-#include "teec_ta_defines.h"
 
 //debug
 #include <stdio.h>
@@ -23,14 +22,14 @@ TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 		return TEE_ERROR_BAD_PARAMETERS;
 	}
 	
-	Batchnorm_param* bnp = (Batchnorm_param*)params[3].memref.buffer;
+	Batchnorm_params* bnp = (Batchnorm_params*)params[3].memref.buffer;
 	Mat_C* btb = &bnp->bottom_top_blob;
 	float* a_data = (float*)params[1].memref.buffer;
 	float* b_data = (float*)params[2].memref.buffer;
 	float* bottom_top_blob = (float*)params[0].memref.buffer;
 
 	int dims = btb->dims;
-	printf("dims: %d\n",dims);
+	//printf("dims: %d\n",dims);
 	if(dims == 1){
 		int w = btb->w;
 		float* ptr = bottom_top_blob;

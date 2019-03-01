@@ -9,7 +9,7 @@
 typedef struct {
 	Mat_C bottom_top_blob;
 	int channels;
-}Batchnorm_param;
+}Batchnorm_params;
 
 
 #endif // BATCHNORM_TEEC_TA_DEFINES_H

@@ -6,7 +6,7 @@
 #include "mat.h"
 #include "teec_ta_defines.h"
 namespace ncnn {
-void init_mat_c_from_mat(Mat_C* mat_c, Mat& mat);
+void init_mat_c_from_mat(Mat_C* mat_c, const Mat& mat);
 } // namespace ncnn
 
 

@@ -146,6 +146,8 @@ TEE_Result TA_InvokeCommandEntryPoint(void __maybe_unused *sess_ctx,
 	switch (cmd_id) {
 	case TA_BATCHNORM:
 		return batchnorm_ta(param_types, params);
+	case TA_POOLING:
+		return pooling_ta(param_types, params);
 	case TA_OTHER_LAYER:
 		return TEE_ERROR_BAD_PARAMETERS;
 	default:
