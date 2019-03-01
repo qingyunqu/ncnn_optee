@@ -1,11 +1,9 @@
 // implement the batchnorm layer by teec and run forward in the optee os
 
-#ifndef LAYER_BATCHNORM_TEEC_H
-#define LAYER_BATCHNORM_TEEC_H
+#ifndef BATCHNORM_TEEC_H
+#define BATCHNORM_TEEC_H
 
 #include "batchnorm.h"
-
-#include "teec.h"
 
 namespace ncnn {
 

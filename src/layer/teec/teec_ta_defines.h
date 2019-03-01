@@ -1,5 +1,6 @@
 // universal param used by both teec and ta
 // *** this file both in teec and ta, you should modify both of them
+
 #ifndef TEEC_TA_DEFINES_H
 #define TEEC_TA_DEFINES_H
 
