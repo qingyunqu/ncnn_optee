@@ -70,7 +70,7 @@ void benchmark(const char* comment, void (*init)(ncnn::Net&), void (*run)(const 
 #ifdef _WIN32
     Sleep(10 * 1000);
 #else
-    sleep(10);
+    //sleep(10);
 #endif
 
     // warm up
@@ -104,7 +104,7 @@ void benchmark(const char* comment, void (*init)(ncnn::Net&), void (*run)(const 
 
 void squeezenet_init(ncnn::Net& net)
 {
-    net.load_param("squeezenet.param");
+    net.load_param("/usr/bin/squeezenet.param");
 }
 
 void squeezenet_run(const ncnn::Net& net)
@@ -120,7 +120,7 @@ void squeezenet_run(const ncnn::Net& net)
 
 void mobilenet_init(ncnn::Net& net)
 {
-    net.load_param("mobilenet.param");
+    net.load_param("/usr/bin/mobilenet.param");
 }
 
 void mobilenet_run(const ncnn::Net& net)
@@ -136,7 +136,7 @@ void mobilenet_run(const ncnn::Net& net)
 
 void mobilenet_v2_init(ncnn::Net& net)
 {
-    net.load_param("mobilenet_v2.param");
+    net.load_param("/usr/bin/mobilenet_v2.param");
 }
 
 void mobilenet_v2_run(const ncnn::Net& net)
@@ -152,7 +152,7 @@ void mobilenet_v2_run(const ncnn::Net& net)
 
 void shufflenet_init(ncnn::Net& net)
 {
-    net.load_param("shufflenet.param");
+    net.load_param("/usr/bin/shufflenet.param");
 }
 
 void shufflenet_run(const ncnn::Net& net)
@@ -168,7 +168,7 @@ void shufflenet_run(const ncnn::Net& net)
 
 void mnasnet_init(ncnn::Net& net)
 {
-    net.load_param("mnasnet.param");
+    net.load_param("/usr/bin/mnasnet.param");
 }
 
 void mnasnet_run(const ncnn::Net& net)
@@ -184,7 +184,7 @@ void mnasnet_run(const ncnn::Net& net)
 
 void proxylessnasnet_init(ncnn::Net& net)
 {
-    net.load_param("proxylessnasnet.param");
+    net.load_param("/usr/bin/proxylessnasnet.param");
 }
 
 void proxylessnasnet_run(const ncnn::Net& net)
@@ -200,7 +200,7 @@ void proxylessnasnet_run(const ncnn::Net& net)
 
 void googlenet_init(ncnn::Net& net)
 {
-    net.load_param("googlenet.param");
+    net.load_param("/usr/bin/googlenet.param");
 }
 
 void googlenet_run(const ncnn::Net& net)
@@ -216,7 +216,7 @@ void googlenet_run(const ncnn::Net& net)
 
 void resnet18_init(ncnn::Net& net)
 {
-    net.load_param("resnet18.param");
+    net.load_param("/usr/bin/resnet18.param");
 }
 
 void resnet18_run(const ncnn::Net& net)
@@ -232,7 +232,7 @@ void resnet18_run(const ncnn::Net& net)
 
 void alexnet_init(ncnn::Net& net)
 {
-    net.load_param("alexnet.param");
+    net.load_param("/usr/bin/alexnet.param");
 }
 
 void alexnet_run(const ncnn::Net& net)
@@ -248,7 +248,7 @@ void alexnet_run(const ncnn::Net& net)
 
 void vgg16_init(ncnn::Net& net)
 {
-    net.load_param("vgg16.param");
+    net.load_param("/usr/bin/vgg16.param");
 }
 
 void vgg16_run(const ncnn::Net& net)
@@ -264,7 +264,7 @@ void vgg16_run(const ncnn::Net& net)
 
 void squeezenet_ssd_init(ncnn::Net& net)
 {
-    net.load_param("squeezenet_ssd.param");
+    net.load_param("/usr/bin/squeezenet_ssd.param");
 }
 
 void squeezenet_ssd_run(const ncnn::Net& net)
@@ -280,7 +280,7 @@ void squeezenet_ssd_run(const ncnn::Net& net)
 
 void mobilenet_ssd_init(ncnn::Net& net)
 {
-    net.load_param("mobilenet_ssd.param");
+    net.load_param("/usr/bin/mobilenet_ssd.param");
 }
 
 void mobilenet_ssd_run(const ncnn::Net& net)
@@ -296,7 +296,7 @@ void mobilenet_ssd_run(const ncnn::Net& net)
 
 void mobilenet_yolo_init(ncnn::Net& net)
 {
-    net.load_param("mobilenet_yolo.param");
+    net.load_param("/usr/bin/mobilenet_yolo.param");
 }
 
 void mobilenet_yolo_run(const ncnn::Net& net)
@@ -312,7 +312,7 @@ void mobilenet_yolo_run(const ncnn::Net& net)
 
 void mobilenet_yolov3_init(ncnn::Net& net)
 {
-    net.load_param("mobilenet_yolov3.param");
+    net.load_param("/usr/bin/mobilenet_yolov3.param");
 }
 
 void mobilenet_yolov3_run(const ncnn::Net& net)

@@ -13,7 +13,7 @@ extern "C"{
 typedef struct {
 	Mat_C bottom_top_blob;
 	int channels;
-}Batchnorm_param;
+}Batchnorm_params;
 
 #ifdef __cplusplus
 }

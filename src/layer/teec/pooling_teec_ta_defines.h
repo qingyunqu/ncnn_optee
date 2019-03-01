@@ -24,7 +24,7 @@ typedef struct {
 	int pad_bottom;
 	int global_pooling;
 	int pad_mode; // 0=full 1=valid 2=SAME
-}Pooling_param;
+}Pooling_params;
 
 #ifdef __cplusplus
 }
