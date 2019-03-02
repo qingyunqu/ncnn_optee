@@ -50,7 +50,7 @@ public:
 
 } // namespace ncnn
 
-static int g_loop_count = 4;
+static int g_loop_count = 1;
 
 static ncnn::UnlockedPoolAllocator g_blob_pool_allocator;
 static ncnn::PoolAllocator g_workspace_pool_allocator;
@@ -74,9 +74,9 @@ void benchmark(const char* comment, void (*init)(ncnn::Net&), void (*run)(const 
 #endif
 
     // warm up
-    run(net);
-    run(net);
-    run(net);
+    //run(net);
+    //run(net);
+    //run(net);
 
     double time_min = DBL_MAX;
     double time_max = -DBL_MAX;

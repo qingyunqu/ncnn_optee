@@ -8,5 +8,6 @@
 TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4]);
 TEE_Result pooling_ta(uint32_t param_types, TEE_Param params[4]);
 TEE_Result relu_ta(uint32_t param_types,TEE_Param params[4]);
+TEE_Result scale_ta(uint32_t param_types, TEE_Param params[4]);
 
 #endif // LAYER_REGISTERED_H

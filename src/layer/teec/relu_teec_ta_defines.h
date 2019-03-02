@@ -1,4 +1,4 @@
-// pooling param defines used by both teec and ta
+// relu param defines used by both teec and ta
 // *** this file both in teec and ta, you should modify both of them
 
 #ifndef RELU_TEEC_TA_DEFINES_H

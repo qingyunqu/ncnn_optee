@@ -11,7 +11,6 @@ DEFINE_LAYER_CREATOR(ReLU_teec)
 int ReLU_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 {
 	printf("ReLU_teec::forward\n");
-	
 	if(ctx_flag != 1){
 		prepare_tee_session(&ctx);
 		ctx_flag = 1;
