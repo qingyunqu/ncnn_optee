@@ -1,4 +1,4 @@
-#include "layer.h"
+#include "layer_registered.h"
 #include "pooling_teec_ta_defines.h"
 
 #include <stdio.h>

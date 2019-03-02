@@ -1,4 +1,4 @@
-#include "layer.h"
+#include "layer_registered.h"
 #include "batchnorm_teec_ta_defines.h"
 
 //debug

@@ -75,7 +75,7 @@ int Pooling_teec::forward(const Mat& bottom_blob, Mat& top_blob, const Option& o
 		
 	
 	return Pooling::forward(bottom_blob,top_blob,opt);
-	return 0;
+	//return 0;
 }
 
 } // namespace ncnn

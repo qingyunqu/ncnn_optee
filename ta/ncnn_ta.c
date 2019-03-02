@@ -29,7 +29,7 @@
 #include <tee_internal_api_extensions.h>
 
 #include <ncnn_ta.h>
-#include "layer/layer.h"
+#include "layer/layer_registered.h"
 
 /*
  * Called when the instance of the TA is created. This is the first call in
@@ -148,8 +148,8 @@ TEE_Result TA_InvokeCommandEntryPoint(void __maybe_unused *sess_ctx,
 		return batchnorm_ta(param_types, params);
 	case TA_POOLING:
 		return pooling_ta(param_types, params);
-	case TA_OTHER_LAYER:
-		return TEE_ERROR_BAD_PARAMETERS;
+	case TA_RELU:
+		return relu_ta(param_types,params);
 	default:
 		return TEE_ERROR_BAD_PARAMETERS;
 	}
