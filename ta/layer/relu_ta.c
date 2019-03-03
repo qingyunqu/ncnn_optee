@@ -5,7 +5,7 @@
 
 TEE_Result relu_ta(uint32_t param_types, TEE_Param params[4])
 {
-	printf("relu_ta\n");
+	dprintf("relu_ta\n");
 	/**
 	  * params[0]: void* bottom_top_blob.data
 	  * params[1]: ReLU_params* rlup;
@@ -56,6 +56,6 @@ TEE_Result relu_ta(uint32_t param_types, TEE_Param params[4])
 		}
 	}
 	
-	printf("relu_ta success\n");
+	dprintf("relu_ta success\n");
 	return TEE_SUCCESS;
 }

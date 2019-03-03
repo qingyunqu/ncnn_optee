@@ -15,7 +15,7 @@ int BatchNorm_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) con
 	// a = bias - slope * mean / sqrt(var)
     // b = slope / sqrt(var)
     // value = b * value + a
-	printf("BatchNorm_teec::forward_inplace\n");
+	dprintf("BatchNorm_teec::forward\n");
 
 	if(ctx_flag != 1){
 		prepare_tee_session(&ctx);
@@ -50,13 +50,13 @@ int BatchNorm_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) con
 	op.params[3].tmpref.size = sizeof(bnp);
 
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_BATCHNORM,&op,&origin);
-	//if(res != TEEC_SUCCESS)
-	//	return -100;
+	if(res != TEEC_SUCCESS){
+		dprintf("BatchNorm_teec::forward failed\n");
+		return BatchNorm::forward_inplace(bottom_top_blob, opt);
+	}
 
 	//terminate_tee_session(&ctx);
-	
-	//return BatchNorm::forward_inplace(bottom_top_blob, opt);
-	printf("BatchNorm_teec::forward_inplace success\n");
+	dprintf("BatchNorm_teec::forward success\n");
 	return 0;
 }
 

@@ -21,6 +21,8 @@ extern "C"{
 #include <tee_client_api.h>
 #include <ncnn_ta.h>
 
+#include "debug.h"
+
 typedef struct {
 	TEEC_Context ctx;
 	TEEC_Session sess;

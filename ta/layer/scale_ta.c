@@ -5,7 +5,7 @@
 
 TEE_Result scale_ta(uint32_t param_types, TEE_Param params[4])
 {
-	printf("scale_ta\n");
+	dprintf("scale_ta\n");
 	/**
 	  * params[0]: void* bottom_top_blob.data
 	  * params[1]: void* scale_blob.data
@@ -115,6 +115,6 @@ TEE_Result scale_ta(uint32_t param_types, TEE_Param params[4])
 			}
 		}
 	}
-	printf("scale_ta success\n");
+	dprintf("scale_ta success\n");
 	return TEE_SUCCESS;
 }

@@ -41,5 +41,6 @@
 #define TA_POOLING			1
 #define TA_RELU				2
 #define TA_SCALE			3
+#define TA_SOFTMAX			4
 
 #endif /*TA_HELLO_WORLD_H*/

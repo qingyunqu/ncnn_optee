@@ -6,7 +6,7 @@
 
 TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 {
-	printf("batchnorm_ta\n");
+	dprintf("batchnorm_ta\n");
 	/**
 	 * params[0]: void* bottom_top_blob.data
 	 * params[1]: void* a_data.data
@@ -65,7 +65,7 @@ TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 			}
 		}
 	}
-	printf("batchnorm_ta success\n");
-	
+
+	dprintf("batchnorm_ta success\n");	
 	return TEE_SUCCESS;
 }

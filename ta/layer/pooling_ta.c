@@ -2,11 +2,11 @@
 #include "pooling_teec_ta_defines.h"
 
 #include <stdio.h>
-//#include <math.h> no such file?
+#include "math.h" // my implementation
 
 TEE_Result pooling_ta(uint32_t param_types, TEE_Param params[4])
 {
-	printf("pooling_ta\n");
+	dprintf("pooling_ta\n");
 	/**
 	  * params[0]: void* bottom_blob.data
 	  * params[1]: void* top_blob.data
@@ -26,14 +26,14 @@ TEE_Result pooling_ta(uint32_t param_types, TEE_Param params[4])
 	{
 		//Pooling_params* pp = (Pooling_params*)params[2].memref.buffer;
 		Mat_C* bb = &pp->bottom_blob;
-		Mat_C* tb = &pp->top_blob;
+		//Mat_C* tb = &pp->top_blob;
 		float* bottom_blob = (float*)params[0].memref.buffer;
 		float* top_blob = (float*)params[1].memref.buffer;
 	
 		int w = bb->w;
 		int h = bb->h;
 		int channels = bb->c;
-		size_t elemsize = bb->elemsize;
+		//size_t elemsize = bb->elemsize;
 		
 		int size = w * h;
 		if (pp->pooling_type == PoolMethod_MAX)
@@ -45,7 +45,7 @@ TEE_Result pooling_ta(uint32_t param_types, TEE_Param params[4])
 				float max_ = ptr[0];
 				for (int i=0; i<size; i++)
 				{
-					max_ = max_ > ptr[i] ? max_ : ptr[i]; //precise?
+					max_ = max(max_, ptr[i]);
 				}
 				top_blob[q] = max_;
 			}
@@ -64,8 +64,10 @@ TEE_Result pooling_ta(uint32_t param_types, TEE_Param params[4])
 				top_blob[q] = sum / size;
 			}
 		}
-		printf("pooling_ta success\n");
+		dprintf("pooling_ta success\n");
 		return TEE_SUCCESS;
 	}
 
+	dprintf("pooling_ta failed\n");
+	return TEE_ERROR_BAD_PARAMETERS;
 }

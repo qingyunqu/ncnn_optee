@@ -13,7 +13,7 @@ int Scale_teec::forward_inplace(std::vector<Mat>& bottom_top_blobs, const Option
 	Mat& bottom_top_blob = bottom_top_blobs[0];
 	const Mat& scale_blob = bottom_top_blobs[1];
 	
-	printf("Scale_teec::forward\n");
+	dprintf("Scale_teec::forward\n");
 	if (ctx_flag != 1){
 		prepare_tee_session(&ctx);
 		ctx_flag = 1;
@@ -48,9 +48,12 @@ int Scale_teec::forward_inplace(std::vector<Mat>& bottom_top_blobs, const Option
 	op.params[3].tmpref.size = sizeof(sp);
 	
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_SCALE,&op,&origin);
-	//if(res != TEEC_SUCCESS)
+	if(res != TEEC_SUCCESS){
+		dprintf("Scale_teec::forward failed\n");
+		return Scale::forward_inplace(bottom_top_blobs, opt);
+	}
 	
-	printf("Scale_teec::forward success\n");
+	dprintf("Scale_teec::forward success\n");
 	return 0;
 }
 

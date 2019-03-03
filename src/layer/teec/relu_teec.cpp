@@ -10,7 +10,7 @@ DEFINE_LAYER_CREATOR(ReLU_teec)
 
 int ReLU_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 {
-	printf("ReLU_teec::forward\n");
+	dprintf("ReLU_teec::forward\n");
 	if(ctx_flag != 1){
 		prepare_tee_session(&ctx);
 		ctx_flag = 1;
@@ -38,9 +38,12 @@ int ReLU_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 	op.params[1].tmpref.size = sizeof(rlup);
 	
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_RELU,&op,&origin);
-	//if(res != TEEC_SUCCESS)
+	if(res != TEEC_SUCCESS){
+		dprintf("ReLU_teec:forward failed\n");
+		return ReLU::forward_inplace(bottom_top_blob, opt);
+	}
 	
-	printf("ReLU_teec::forward success\n");
+	dprintf("ReLU_teec::forward success\n");
 	return 0;
 }
 
