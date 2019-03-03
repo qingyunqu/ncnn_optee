@@ -214,15 +214,15 @@ TEE_Result softmax_ta(uint32_t param_types, TEE_Param params[4])
 		dprintf("softmax_ta success\n");
 		return TEE_SUCCESS;
 	}
-	/*if(dims == 3 && axis == 1)
+	if(dims == 3 && axis == 1)
 	{
 		int w = btb->w;
 		int h = btb->h;
 		int channels = btb->c;
 		
-		float* max_ = (float*) TEE_Malloc(h * channels * sizeof(float)*/ /*elemsize*/ /*, 0);// only support float32, elemsize = 4
+		float* max_ = (float*) TEE_Malloc(h * channels * sizeof(float)/*elemsize*/, 0);// only support float32, elemsize = 4
 		if(!max_){
-			fprintf(stderr,"error TEE_Malloc!\n");
+			printf("error TEE_Malloc!\n");
 			return TEE_ERROR_OUT_OF_MEMORY;
 		}
 		for(int i=0; i<h*channels; i++)
@@ -231,9 +231,141 @@ TEE_Result softmax_ta(uint32_t param_types, TEE_Param params[4])
 		//#pragma omp parallel for num_threads(xxx)
 		for(int q=0; q<channels; q++){
 			const float* ptr = channel(bottom_top_blob,btb,q);
-			//float* 
+			float* max_ptr = (float*)max_ + h * q; // only support float32
+			for(int i=0; i<h; i++){
+				float max_tmp = -FLT_MAX;
+				for(int j=0; j<w; j++){
+					max_tmp = max(max_tmp, ptr[j]);
+				}
+				max_ptr[i] = max_tmp;
+				ptr += w;
+			}
 		}
-	}*/
+		//#pragma omp parallel for num_threads(xxx)
+		for(int q=0; q<channels; q++){
+			float* ptr = channel(bottom_top_blob,btb,q);
+			float* max_ptr = (float*)max_ + h * q; // only support float32
+			for(int i=0; i<h; i++){
+				float max_tmp = max_ptr[i];
+				for(int j=0; j<w; j++){
+					ptr[j] = exp(ptr[j] - max_tmp);
+				}
+				ptr += w;
+			}
+		}
+		TEE_Free(max_);
+			
+		float* sum = (float*) TEE_Malloc(h * channels * sizeof(float)/*elemsize*/, 0);// only support float32, elemsize = 4
+		if(!sum){
+			printf("error TEE_Malloc!\n");
+			return TEE_ERROR_OUT_OF_MEMORY;
+		}
+		for(int i=0; i<h*channels; i++)
+			sum[i] = 0.f;
+		
+		//#pragma omp parallel for num_threads(xxx)
+		for(int q=0; q<channels; q++){
+			const float* ptr = channel(bottom_top_blob,btb,q);
+			float* sumptr = (float*)sum + h * q; // only support float32
+			for(int i=0; i<h; i++){
+				float sum_tmp = 0.f;
+				for(int j=0; j<w; j++){
+					sum_tmp += ptr[j];
+				}
+				sumptr[i] = sum_tmp;
+				ptr += w;
+			}
+		}
+		//#pragma omp parallel for num_threads(xxx)
+		for(int q=0; q<channels; q++){
+			float* ptr = channel(bottom_top_blob,btb,q);
+			float* sumptr = (float*)sum + h * q; // only support float32
+			for(int i=0; i<h; i++){
+				float sum_tmp = sumptr[i];
+				for(int j=0; j<w; j++){
+					ptr[j] /= sum_tmp;
+				}
+				ptr += w;
+			}
+		}
+		TEE_Free(sum);
+
+		dprintf("softmax_ta success\n");
+		return TEE_SUCCESS;
+	}
+	if(dims == 3 && axis == 2)
+	{
+		int w = btb->w;
+		int h = btb->h;
+		int channels = btb->c;
+		
+		float* max_ = (float*) TEE_Malloc(w * channels * sizeof(float)/*elemsize*/, 0);// only support float32, elemsize = 4
+		if(!max_){
+			printf("error TEE_Malloc!\n");
+			return TEE_ERROR_OUT_OF_MEMORY;
+		}
+		for(int i=0; i<w*channels; i++)
+			max_[i] = -FLT_MAX;
+		
+		//#pragma omp parallel for num_threads(xxx)
+		for(int q=0; q<channels; q++){
+			const float* ptr = channel(bottom_top_blob,btb,q);
+			float* max_ptr = (float*)max_ + w * q;// only support float32
+			for(int i=0; i<h; i++){
+				for(int j=0; j<w; j++){
+					max_ptr[j] = max(max_ptr[j],ptr[j]);
+				}
+				ptr += w;
+			}
+		}
+		//#pragma omp parallel for num_threads(xxx)
+		for(int q=0; q<channels; q++){
+			float* ptr = channel(bottom_top_blob,btb,q);
+			float* max_ptr = (float*)max_ + w * q;// only support float32
+			for(int i=0; i<h; i++){
+				for(int j=0; j<w; j++){
+					ptr[j] = exp(ptr[j] - max_ptr[j]);
+				}
+				ptr += w;
+			}
+		}
+		TEE_Free(max_);
+		
+		float* sum = (float*) TEE_Malloc(w * channels * sizeof(float)/*elemsize*/, 0);// only support float32, elemsize = 4
+		if(!sum){
+			printf("error TEE_Malloc!\n");
+			return TEE_ERROR_OUT_OF_MEMORY;
+		}
+		for(int i=0; i<w*channels; i++)
+			sum[i] = 0.f;
+		
+		//#pragma omp parallel for num_threads(xxx)
+		for(int q=0; q<channels; q++){
+			const float* ptr = channel(bottom_top_blob,btb,q);
+			float* sumptr = (float*)sum + w * q;// only support float32
+			for(int i=0; i<h; i++){
+				for(int j=0; j<w; j++){
+					sumptr[j] += ptr[j];
+				}
+				ptr += w;
+			}
+		}
+		//#pragma omp parallel for num_threads(xxx)
+		for(int q=0; q<channels; q++){
+			float* ptr = channel(bottom_top_blob,btb,q);
+			float* sumptr = (float*)sum + w * q;// only support float32
+			for(int i=0; i<h; i++){
+				for(int j=0; j<w; j++){
+					ptr[j] /= sumptr[j];
+				}
+				ptr += w;
+			}
+		}
+		TEE_Free(sum);
+		
+		dprintf("softmax_ta success\n");
+		return TEE_SUCCESS;
+	}
 
 	dprintf("softmax_ta failed\n");
 	return TEE_ERROR_BAD_PARAMETERS;	

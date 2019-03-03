@@ -34,7 +34,7 @@ int ReLU_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 	ReLU_params rlup;
 	init_mat_c_from_mat(&rlup.bottom_top_blob,bottom_top_blob);
 	rlup.slope = slope;
-	op.params[1].tmpref.buffer = &rlup;
+	op.params[1].tmpref.buffer = (void*)&rlup;
 	op.params[1].tmpref.size = sizeof(rlup);
 	
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_RELU,&op,&origin);

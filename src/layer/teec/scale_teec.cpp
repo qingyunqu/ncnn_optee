@@ -44,7 +44,7 @@ int Scale_teec::forward_inplace(std::vector<Mat>& bottom_top_blobs, const Option
 	init_mat_c_from_mat(&sp.bias_data,bias_data);
 	sp.scale_data_size = scale_data_size;
 	sp.bias_term = bias_term;
-	op.params[3].tmpref.buffer = &sp;
+	op.params[3].tmpref.buffer = (void*)&sp;
 	op.params[3].tmpref.size = sizeof(sp);
 	
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_SCALE,&op,&origin);
