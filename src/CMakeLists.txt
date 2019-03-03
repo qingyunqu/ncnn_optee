@@ -156,7 +156,9 @@ configure_file(layer_declaration.h.in ${CMAKE_CURRENT_BINARY_DIR}/layer_declarat
 configure_file(layer_registry.h.in ${CMAKE_CURRENT_BINARY_DIR}/layer_registry.h)
 configure_file(layer_type_enum.h.in ${CMAKE_CURRENT_BINARY_DIR}/layer_type_enum.h)
 
-list(APPEND ncnn_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/layer/teec/teec.cpp")
+if(NCNN_TEEC)
+	list(APPEND ncnn_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/layer/teec/teec.cpp")
+endif()
 
 add_library(ncnn STATIC ${ncnn_SRCS})
 # link teec lib
