@@ -12,6 +12,7 @@
 #include "benchmark.h"
 #include "cpu.h"
 #include "net.h"
+#include <iostream>
 
 namespace ncnn {
 
@@ -57,6 +58,8 @@ static ncnn::PoolAllocator g_workspace_pool_allocator;
 
 void benchmark(const char* comment, void (*init)(ncnn::Net&), void (*run)(const ncnn::Net&))
 {
+	std::cout<<comment<<std::endl;
+
     ncnn::BenchNet net;
 
     init(net);
@@ -380,7 +383,7 @@ int main(int argc, char** argv)
 
     //benchmark("proxylessnasnet", proxylessnasnet_init, proxylessnasnet_run);
 
-    //benchmark("googlenet", googlenet_init, googlenet_run);
+    benchmark("googlenet", googlenet_init, googlenet_run);
 
     //benchmark("resnet18", resnet18_init, resnet18_run);
 

@@ -5,4 +5,3 @@
 * how to check the running result is the as same as the original framework
 * float precise in `math.c`, can't use `<math.h>`
 * only realize part of `pooling_ta.c`, but it is useful
-* `if(res != TEE_SUCCESS)` in all layer implementation
