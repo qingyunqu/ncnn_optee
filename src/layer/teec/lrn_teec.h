@@ -11,7 +11,7 @@ class LRN_teec : public LRN
 {
 public:
 	virtual int forward_inplace(Mat& bottom_top_blob, const Option& opt) const;
-}
+};
 
 } // namespace ncnn
 

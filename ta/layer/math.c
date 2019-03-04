@@ -15,5 +15,5 @@ float max(float a, float b){ // may should implement more precisely
 }
 
 float pow(float x, float y){
-
+	return 0.f;
 }

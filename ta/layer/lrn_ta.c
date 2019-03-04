@@ -62,7 +62,7 @@ TEE_Result lrn_ta(uint32_t param_types, TEE_Param params[4])
 		for(int q=0; q<channels; q++){
 			// square sum
 			float* ssptr = square_sum + w * h * q;
-			for(int p=q - lrnp->local_size/2; p<=q+local_size/2;p++){
+			for(int p = q - lrnp->local_size/2; p <= q + lrnp->local_size/2; p++){
 				if(p<0 || p>=channels)
 					continue;
 				const float* sptr = square_blob + w * h * p;

@@ -16,7 +16,7 @@ int LRN_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 		prepare_tee_session(&ctx);
 		ctx_flag = 1;
 	}
-	TEE_Result res;
+	TEEC_Result res;
 	uint32_t origin;
 	TEEC_Operation op;
 	memset(&op,0,sizeof(op));
@@ -40,8 +40,8 @@ int LRN_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 	lrnp.alpha = alpha;
 	lrnp.beta = beta;
 	lrnp.bias = bias;
-	op.params[1].buffer = (void*)&lrnp;
-	op.params[1].size = sizeof(lrnp);
+	op.params[1].tmpref.buffer = (void*)&lrnp;
+	op.params[1].tmpref.size = sizeof(lrnp);
 
 	if (region_type == NormRegion_ACROSS_CHANNELS)
 	{
