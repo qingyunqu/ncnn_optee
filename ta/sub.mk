@@ -7,6 +7,7 @@ srcs-y += layer/pooling_ta.c
 srcs-y += layer/relu_ta.c
 srcs-y += layer/scale_ta.c
 srcs-y += layer/softmax_ta.c
+srcs-y += layer/lrn_ta.c
 
 # To remove a certain compiler flag, add a line like this
 #cflags-template_ta.c-y += -Wno-strict-prototypes

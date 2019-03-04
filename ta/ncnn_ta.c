@@ -154,6 +154,8 @@ TEE_Result TA_InvokeCommandEntryPoint(void __maybe_unused *sess_ctx,
 		return scale_ta(param_types,params);
 	case TA_SOFTMAX:
 		return softmax_ta(param_types,params);
+	case TA_LRN:
+		return lrn_ta(param_types,params);
 	default:
 		return TEE_ERROR_BAD_PARAMETERS;
 	}

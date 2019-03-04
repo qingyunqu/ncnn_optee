@@ -42,5 +42,6 @@
 #define TA_RELU				2
 #define TA_SCALE			3
 #define TA_SOFTMAX			4
+#define TA_LRN				5
 
-#endif /*TA_HELLO_WORLD_H*/
+#endif /*TA_NCNN_H*/
