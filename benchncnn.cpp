@@ -373,17 +373,17 @@ int main(int argc, char** argv)
     // run
     //benchmark("squeezenet", squeezenet_init, squeezenet_run);
 
-    //benchmark("mobilenet", mobilenet_init, mobilenet_run);
+    benchmark("mobilenet", mobilenet_init, mobilenet_run);
 
     //benchmark("mobilenet_v2", mobilenet_v2_init, mobilenet_v2_run);
 
     //benchmark("shufflenet", shufflenet_init, shufflenet_run);
 
-    benchmark("mnasnet", mnasnet_init, mnasnet_run);
+    //benchmark("mnasnet", mnasnet_init, mnasnet_run);
 
     //benchmark("proxylessnasnet", proxylessnasnet_init, proxylessnasnet_run);
 
-    benchmark("googlenet", googlenet_init, googlenet_run);
+    //benchmark("googlenet", googlenet_init, googlenet_run);
 
     //benchmark("resnet18", resnet18_init, resnet18_run);
 

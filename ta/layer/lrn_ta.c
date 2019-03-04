@@ -32,9 +32,10 @@ TEE_Result lrn_ta(uint32_t param_types, TEE_Param params[4])
 	int size = w * h;
 
 	// squared values with local_size padding
+	dprintf("malloc size: %d\n",w * h * channels * sizeof(float));
 	float* square_blob = (float*) TEE_Malloc(w * h * channels * sizeof(float)/*elemsize*/, 0);// only support float32
 	if(!square_blob){
-		dprintf("error TEE_Malloc!\n");
+		dprintf("error TEE_Malloc: square_blob!\n");
 		return TEE_ERROR_OUT_OF_MEMORY;
 	}
 	
@@ -51,7 +52,7 @@ TEE_Result lrn_ta(uint32_t param_types, TEE_Param params[4])
 	{
 		float* square_sum = (float*) TEE_Malloc(w * h * channels * sizeof(float)/*elemsize*/, 0);// only support float32
 		if(!square_sum){
-			dprintf("error TEE_Malloc!\n");
+			dprintf("error TEE_Malloc: square_sum!\n");
 			return TEE_ERROR_OUT_OF_MEMORY;
 		}
 		for(int i=0; i<w*h*channels; i++) // may not need

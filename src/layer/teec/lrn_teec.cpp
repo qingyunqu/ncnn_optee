@@ -10,7 +10,7 @@ DEFINE_LAYER_CREATOR(LRN_teec)
 
 int LRN_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 {
-	dprintf("LRN_teec::forward\n");
+	/*dprintf("LRN_teec::forward\n");
 	
 	if(ctx_flag != 1){
 		prepare_tee_session(&ctx);
@@ -27,7 +27,7 @@ int LRN_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 	  * params[2]: NONE
 	  * params[3]: NONE
 	  */
-	op.paramTypes = TEEC_PARAM_TYPES(TEEC_MEMREF_TEMP_INOUT,
+	/*op.paramTypes = TEEC_PARAM_TYPES(TEEC_MEMREF_TEMP_INOUT,
 									TEEC_MEMREF_TEMP_INPUT,
 									TEEC_NONE,
 									TEEC_NONE);
@@ -52,7 +52,7 @@ int LRN_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 		}
 		dprintf("LRN_teec::forward success\n");
 		return 0;
-	}
+	}*/
 	return LRN::forward_inplace(bottom_top_blob, opt);
 }
 

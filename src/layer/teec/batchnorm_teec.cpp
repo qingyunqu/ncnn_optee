@@ -43,6 +43,8 @@ int BatchNorm_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) con
 	op.params[2].tmpref.buffer = b_data.data;
 	op.params[2].tmpref.size = b_data.total() * b_data.elemsize;
 
+	dprintf("data size: %d %d %d\n",op.params[0].tmpref.size,op.params[1].tmpref.size,op.params[2].tmpref.size);
+
 	Batchnorm_params bnp;
 	bnp.channels = channels;
 	init_mat_c_from_mat(&bnp.bottom_top_blob,bottom_top_blob);
