@@ -13,3 +13,7 @@ float exp(float x){ // quick implementation of exp()
 float max(float a, float b){ // may should implement more precisely
 	return a > b ? a : b;
 }
+
+float pow(float x, float y){
+
+}
