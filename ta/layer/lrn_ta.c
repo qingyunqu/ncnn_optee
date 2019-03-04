@@ -75,12 +75,13 @@ TEE_Result lrn_ta(uint32_t param_types, TEE_Param params[4])
 				ptr[i] = ptr[i] * pow(lrnp->bias + alpha_div_size * ssptr[i], -lrnp->beta);
 			}
 		}
-		
+		TEE_Free(square_sum);
 	}
-		
+	
+	TEE_Free(square_blob);
 	dprintf("softmax_ta success\n");
 	return TEE_SUCCESS;
 	
-	dprintf("softmax_ta failed\n");
-	return TEE_ERROR_BAD_PARAMETERS;
+	//dprintf("softmax_ta failed\n");
+	//return TEE_ERROR_BAD_PARAMETERS;
 }

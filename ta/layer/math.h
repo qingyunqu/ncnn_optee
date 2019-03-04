@@ -5,9 +5,7 @@
 #define MATH_H
 
 float max(float a, float b);
-
 float exp(float x);
-
 float pow(float x, float y);
 
 #endif // MATH_H

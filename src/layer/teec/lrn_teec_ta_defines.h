@@ -4,7 +4,7 @@
 #ifndef LRN_TEEC_TA_DEFINES_H
 #define LRN_TEEC_TA_DEFINES_H
 
-#ifndef __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -19,7 +19,7 @@ typedef struct {
 	float bias;
 }LRN_params;
 
-#ifndef __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

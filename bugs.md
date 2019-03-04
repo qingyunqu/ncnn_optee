@@ -4,4 +4,4 @@
 * run `mobilenet` `batchnorm_ta`, there exists Error `D/TC:? 0 tee_ta_invoke_command:625 Error: ffff000c of 3`
 * how to check the running result is the as same as the original framework
 * float precise in `math.c`, can't use `<math.h>`
-* only realize part of `pooling_ta.c`, but it is useful
+* only realize part of `pooling_ta.c` and `lrn_ta.c`
