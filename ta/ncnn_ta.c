@@ -158,6 +158,8 @@ TEE_Result TA_InvokeCommandEntryPoint(void __maybe_unused *sess_ctx,
 		return lrn_ta(param_types,params);
 	case TA_DROPOUT:
 		return dropout_ta(param_types,params);
+	case TA_FLATTEN:
+		return flatten_ta(param_types,params);
 	default:
 		return TEE_ERROR_BAD_PARAMETERS;
 	}

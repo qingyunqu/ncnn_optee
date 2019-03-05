@@ -44,5 +44,6 @@
 #define TA_SOFTMAX			4
 #define TA_LRN				5
 #define TA_DROPOUT			6
+#define TA_FLATTEN			7
 
 #endif /*TA_NCNN_H*/

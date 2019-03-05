@@ -14,5 +14,6 @@ TEE_Result scale_ta(uint32_t param_types, TEE_Param params[4]);
 TEE_Result softmax_ta(uint32_t param_types, TEE_Param params[4]);
 TEE_Result lrn_ta(uint32_t param_types, TEE_Param params[4]);
 TEE_Result dropout_ta(uint32_t param_types, TEE_Param params[4]);
+TEE_Result flatten_ta(uint32_t param_types, TEE_Param params[4]);
 
 #endif // LAYER_REGISTERED_H
