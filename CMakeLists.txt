@@ -52,30 +52,30 @@ if(NCNN_OPENMP)
     endif()
 endif()
 
-if(WIN32)
-    add_definitions(-D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_DEPRECATE)
-    add_definitions(-DNOMINMAX)
-else()
-    add_definitions(-Wall -Wextra -Wno-unused-function)
-
-    add_definitions(-fPIC)
-    if(CMAKE_BUILD_TYPE MATCHES "(Release|RELEASE|release)")
-        add_definitions(-Ofast)
-
-        add_definitions(-ffast-math)
-    endif()
-
-    if(PI3)
-        add_definitions(-march=native)
-        add_definitions(-mfpu=neon)
-        add_definitions(-mfloat-abi=hard)
-        add_definitions(-D__ARM_NEON)
-        add_definitions(-D__ANDROID__)
-    endif()
-    # add_definitions(-march=native)
-    # add_definitions(-flto)
-    add_definitions(-fvisibility=hidden -fvisibility-inlines-hidden)
-endif()
+#if(WIN32)
+#    add_definitions(-D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_DEPRECATE)
+#    add_definitions(-DNOMINMAX)
+#else()
+#    add_definitions(-Wall -Wextra -Wno-unused-function)
+#
+#    add_definitions(-fPIC)
+#    if(CMAKE_BUILD_TYPE MATCHES "(Release|RELEASE|release)")
+#        add_definitions(-Ofast)
+#
+#        add_definitions(-ffast-math)
+#    endif()
+#
+#    if(PI3)
+#        add_definitions(-march=native)
+#        add_definitions(-mfpu=neon)
+#        add_definitions(-mfloat-abi=hard)
+#        add_definitions(-D__ARM_NEON)
+#        add_definitions(-D__ANDROID__)
+#    endif()
+#    # add_definitions(-march=native)
+#    # add_definitions(-flto)
+#    add_definitions(-fvisibility=hidden -fvisibility-inlines-hidden)
+# endif()
 
 if(ANDROID)
     # disable shared library on android
@@ -89,27 +89,26 @@ endif()
 
 ##############################################
 
-SET ( CMAKE_CXX_FLAGS "-std=c++11 -march=armv7-a -mfloat-abi=hard -mfpu=neon-vfpv4 ${CMAKE_CXX_FLAGS}" )
-#-fopenmp
+set(CMAKE_CXX_FLAGS "-std=c++11 -march=armv8-a ${CMAKE_CXX_FLAGS}") # -mfloat-abi=hard -mfpu=neon-vfpv4 #-fopenmp
 add_definitions(-D__ARM_NEON)
-add_definitions(-D__ANDROID__)
+#add_definitions(-D__ANDROID__)
 
 
 # add_subdirectory(examples)
 # add_subdirectory(benchmark)
 add_subdirectory(src)
-if(NOT ANDROID AND NOT IOS)
+#if(NOT ANDROID AND NOT IOS)
 # add_subdirectory(tools)
-endif()
+#endif()
 
-set (SRC benchncnn.cpp)
+set(SRC benchncnn.cpp)
 # set (PROJECT_NAME benchncnn)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
 add_executable (${PROJECT_NAME} ${SRC})
 target_link_libraries(${PROJECT_NAME} ncnn)
-install (TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
-install (FILES 
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(FILES 
 	param/alexnet.param
 	param/googlenet.param
 	param/mnasnet.param
