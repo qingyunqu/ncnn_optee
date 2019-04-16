@@ -39,14 +39,15 @@ macro(ncnn_add_layer class)
     if(WITH_LAYER_${name})
         list(APPEND ncnn_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/layer/${name}.cpp")
 
-        # look for arch specific implementation and append source
-        # optimized implementation for armv7, aarch64 or x86
-        if((IOS AND CMAKE_OSX_ARCHITECTURES MATCHES "arm")
-            OR (CMAKE_SYSTEM_PROCESSOR MATCHES "^(arm|aarch64)"))
+         #look for arch specific implementation and append source
+         #optimized implementation for armv7, aarch64 or x86
+        #if((IOS AND CMAKE_OSX_ARCHITECTURES MATCHES "arm")
+        #    OR (CMAKE_SYSTEM_PROCESSOR MATCHES "^(arm|aarch64)"))
             set(arch arm)
-        else()
-            set(arch x86)
-        endif()
+			#add_definitions(-D__ARM_NEON)
+        #else()
+        #    set(arch x86)
+        #endif()
 
 		# option teec
 		if(NCNN_TEEC)

@@ -63,8 +63,9 @@ TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 
 			int nn = size >> 2;
 			int remain = size - (nn << 2);
-
+#if __ARM_NEON
 #if __aarch64__
+			dprintf("neon64\n");
 			if (nn > 0)
 			{
 			asm volatile(
@@ -117,9 +118,11 @@ TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 
 				ptr++;
 			}
-			/*for(int i=0; i<size; i++){
+#else
+			for(int i=0; i<size; i++){
 				ptr[i] = b * ptr[i] + a;
-			}*/
+			}
+#endif // __ARM_NEON
 		}
 	}
 

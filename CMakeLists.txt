@@ -1,12 +1,12 @@
 #set(CMAKE_TOOLCHAIN_FILE /home/lyq/ncnn2optee/toolchains/host.gcc.toolchain.cmake)
 
-if(CMAKE_TOOLCHAIN_FILE)
-set(LIBRARY_OUTPUT_PATH_ROOT ${CMAKE_BINARY_DIR} CACHE PATH "root for library output, set this to change where android libs are compiled to")
+#if(CMAKE_TOOLCHAIN_FILE)
+#set(LIBRARY_OUTPUT_PATH_ROOT ${CMAKE_BINARY_DIR} CACHE PATH "root for library output, set this to change where android libs are compiled to")
 # get absolute path, but get_filename_component ABSOLUTE only refer with source dir, so find_file here :(
-get_filename_component(CMAKE_TOOLCHAIN_FILE_NAME ${CMAKE_TOOLCHAIN_FILE} NAME)
-find_file(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE_NAME} PATHS ${CMAKE_SOURCE_DIR} NO_DEFAULT_PATH)
-message(STATUS "CMAKE_TOOLCHAIN_FILE = ${CMAKE_TOOLCHAIN_FILE}")
-endif()
+#get_filename_component(CMAKE_TOOLCHAIN_FILE_NAME ${CMAKE_TOOLCHAIN_FILE} NAME)
+#find_file(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE_NAME} PATHS ${CMAKE_SOURCE_DIR} NO_DEFAULT_PATH)
+#message(STATUS "CMAKE_TOOLCHAIN_FILE = ${CMAKE_TOOLCHAIN_FILE}")
+#endif()
 
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Installation Directory")
@@ -77,20 +77,20 @@ endif()
 #    add_definitions(-fvisibility=hidden -fvisibility-inlines-hidden)
 # endif()
 
-if(ANDROID)
+#if(ANDROID)
     # disable shared library on android
-    set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS FALSE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
-elseif(IOS)
+#    set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS FALSE)
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
+#elseif(IOS)
     # disable shared library on xcode ios
-    set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS FALSE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
-endif()
+#    set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS FALSE)
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
+#endif()
 
 ##############################################
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -march=armv8-a ${CMAKE_CXX_FLAGS}") # -mfloat-abi=hard -mfpu=neon-vfpv4 #-fopenmp
-add_definitions(-D__ARM_NEON)
+set(CMAKE_CXX_FLAGS "-std=c++11 -march=armv7-a ${CMAKE_CXX_FLAGS}") # -mfloat-abi=hard -mfpu=neon-vfpv4 #-fopenmp
+#add_definitions(-D__ARM_NEON)
 #add_definitions(-D__ANDROID__)
 
 
