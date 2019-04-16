@@ -63,6 +63,8 @@ TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 
 			int nn = size >> 2;
 			int remain = size - (nn << 2);
+
+#if __aarch64__
 			if (nn > 0)
 			{
 			asm volatile(
@@ -85,10 +87,34 @@ TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
             	: "cc", "memory", "v0", "v1", "v2", "v3"
 			);
 			}
+#else
+			if (nn > 0)
+        	{
+        	asm volatile(
+            	"vdup.f32   q1, %4              \n"
+            	"vdup.f32   q2, %5              \n"
+            	"0:                             \n"
+            	"pld        [%1, #128]          \n"
+            	"vld1.f32   {d0-d1}, [%1 :128]  \n"
+            	"vorr.32    q3, q1, q1          \n"
+            	"vmla.f32   q3, q0, q2          \n"
+            	"subs       %0, #1              \n"
+            	"vst1.f32   {d6-d7}, [%1 :128]! \n"
+            	"bne        0b                  \n"
+            	: "=r"(nn),     // %0
+            	  "=r"(ptr)     // %1
+            	: "0"(nn),
+            	  "1"(ptr),
+            	  "r"(a),       // %4
+            	  "r"(b)        // %5
+            	: "cc", "memory", "q0", "q1", "q2", "q3"
+        	);
+			}
+#endif // __aarch64__
 			for (; remain>0; remain--)
 			{
 				*ptr = b * *ptr + a;
-				
+
 				ptr++;
 			}
 			/*for(int i=0; i<size; i++){
