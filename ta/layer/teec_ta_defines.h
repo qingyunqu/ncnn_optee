@@ -5,6 +5,8 @@
 
 #include <stddef.h>
 
+#include <arm_neon.h>
+
 typedef struct {
 	size_t elemsize;
 	int dims;

@@ -60,9 +60,40 @@ TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 			float* ptr = channel(bottom_top_blob,btb,q);
 			float a = a_data[q];
 			float b = b_data[q];
-			for(int i=0; i<size; i++){
-				ptr[i] = b * ptr[i] + a;
+
+			int nn = size >> 2;
+			int remain = size - (nn << 2);
+			if (nn > 0)
+			{
+			asm volatile(
+				"dup        v1.4s, %w4             \n"
+            	"dup        v2.4s, %w5             \n"
+            	"0:                                \n"
+            	"prfm       pldl1keep, [%1, #128]  \n"
+            	"ld1        {v0.4s}, [%1]          \n"
+            	"orr        v3.16b, v1.16b, v1.16b \n"
+            	"fmla       v3.4s, v0.4s, v2.4s    \n"
+            	"subs       %w0, %w0, #1           \n"
+            	"st1        {v3.4s}, [%1], #16     \n"
+            	"bne        0b                     \n"
+            	: "=r"(nn),     // %0
+            	  "=r"(ptr)     // %1
+            	: "0"(nn),
+            	  "1"(ptr),
+            	  "r"(a),       // %4
+            	  "r"(b)        // %5
+            	: "cc", "memory", "v0", "v1", "v2", "v3"
+			);
 			}
+			for (; remain>0; remain--)
+			{
+				*ptr = b * *ptr + a;
+				
+				ptr++;
+			}
+			/*for(int i=0; i<size; i++){
+				ptr[i] = b * ptr[i] + a;
+			}*/
 		}
 	}
 
