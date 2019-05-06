@@ -69,13 +69,13 @@ int Pooling_teec::forward(const Mat& bottom_blob, Mat& top_blob, const Option& o
 		res = TEEC_InvokeCommand(&(ctx.sess),TA_POOLING,&op,&origin);
 		if(res != TEEC_SUCCESS){
 			dprintf("Pooling_teec::forward failed\n");
-			return Pooling::forward(bottom_blob,top_blob,opt);
+			return Pooling_arm::forward(bottom_blob,top_blob,opt);
 		}
 		dprintf("Pooling_teec::forward success\n");
 		return 0;
 	}
 	
-	return Pooling::forward(bottom_blob,top_blob,opt);
+	return Pooling_arm::forward(bottom_blob,top_blob,opt);
 	//return 0;
 }
 

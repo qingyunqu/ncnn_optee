@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "scale_teec.h"
 #include "teec.h"
 #include "scale_teec_ta_defines.h"
@@ -50,7 +48,7 @@ int Scale_teec::forward_inplace(std::vector<Mat>& bottom_top_blobs, const Option
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_SCALE,&op,&origin);
 	if(res != TEEC_SUCCESS){
 		dprintf("Scale_teec::forward failed\n");
-		return Scale::forward_inplace(bottom_top_blobs, opt);
+		return Scale_arm::forward_inplace(bottom_top_blobs, opt);
 	}
 	
 	dprintf("Scale_teec::forward success\n");

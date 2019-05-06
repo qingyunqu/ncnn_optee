@@ -3,11 +3,11 @@
 #ifndef BATCHNORM_TEEC_H
 #define BATCHNORM_TEEC_H
 
-#include "batchnorm.h"
+#include "batchnorm_arm.h"
 
 namespace ncnn {
 
-class BatchNorm_teec : public BatchNorm
+class BatchNorm_teec : public BatchNorm_arm
 {
 public:
 	virtual int forward_inplace(Mat& bottom_top_blob, const Option& opt) const;

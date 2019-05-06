@@ -53,7 +53,7 @@ int LRN_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 		dprintf("LRN_teec::forward success\n");
 		return 0;
 	}*/
-	return LRN::forward_inplace(bottom_top_blob, opt);
+	return LRN_arm::forward_inplace(bottom_top_blob, opt);
 }
 
 } // namespace ncnn

@@ -3,11 +3,11 @@
 #ifndef POOLING_TEEC_H
 #define POOLING_TEEC_H
 
-#include "pooling.h"
+#include "pooling_arm.h"
 
 namespace ncnn {
 
-class Pooling_teec : public Pooling
+class Pooling_teec : public Pooling_arm
 {
 public:
 	virtual int forward(const Mat& bottom_blob, Mat& top_blob, const Option& opt) const;

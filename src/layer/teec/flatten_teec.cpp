@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "flatten_teec.h"
 #include "teec.h"
 #include "flatten_teec_ta_defines.h"
@@ -55,7 +53,7 @@ int Flatten_teec::forward(const Mat& bottom_blob, Mat& top_blob, const Option& o
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_FLATTEN,&op,&origin);
 	if(res != TEEC_SUCCESS){
 		dprintf("Flatten_teec::forward failed\n");
-		return Flatten::forward(bottom_blob,top_blob,opt);//top_blob.create()
+		return Flatten_arm::forward(bottom_blob,top_blob,opt);//top_blob.create()
 	}
 	dprintf("Flatten_teec::forward success\n");
 	return 0;

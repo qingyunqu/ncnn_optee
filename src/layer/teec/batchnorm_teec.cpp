@@ -54,7 +54,7 @@ int BatchNorm_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) con
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_BATCHNORM,&op,&origin);
 	if(res != TEEC_SUCCESS){
 		dprintf("BatchNorm_teec::forward failed\n");
-		return BatchNorm::forward_inplace(bottom_top_blob, opt);
+		return BatchNorm_arm::forward_inplace(bottom_top_blob, opt);
 	}
 
 	//terminate_tee_session(&ctx);

@@ -6,6 +6,7 @@ configure_file(platform.h.in ${CMAKE_CURRENT_BINARY_DIR}/platform.h)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/layer)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/layer/arm)
 
 set(ncnn_SRCS
     allocator.cpp
@@ -32,51 +33,66 @@ macro(ncnn_add_layer class)
         option(WITH_LAYER_${name} "build with layer ${name}" ON)
     endif()
 
-    if(NCNN_CMAKE_VERBOSE)
-        message(STATUS "WITH_LAYER_${name} = ${WITH_LAYER_${name}}")
-    endif()
-
     if(WITH_LAYER_${name})
         list(APPEND ncnn_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/layer/${name}.cpp")
 
-         #look for arch specific implementation and append source
-         #optimized implementation for armv7, aarch64 or x86
-        #if((IOS AND CMAKE_OSX_ARCHITECTURES MATCHES "arm")
-        #    OR (CMAKE_SYSTEM_PROCESSOR MATCHES "^(arm|aarch64)"))
-            set(arch arm)
-			#add_definitions(-D__ARM_NEON)
-        #else()
-        #    set(arch x86)
-        #endif()
+        #set(arch arm)
+		#add_definitions(-D__ARM_NEON)
+        #set(arch x86)
 
 		# option teec
 		if(NCNN_TEEC)
-			set(arch teec)
-		endif()
-		
-        set(LAYER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/layer/${arch}/${name}_${arch}.cpp)
-        if(EXISTS ${LAYER_SRC})
-            set(WITH_LAYER_${name}_${arch} 1)
-            list(APPEND ncnn_SRCS ${LAYER_SRC})
-            if(NCNN_CMAKE_VERBOSE)
-                message(STATUS "Adding layer: ${LAYER_SRC}")
+            set(arch teec)
+            set(LAYER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/layer/${arch}/${name}_${arch}.cpp)
+            if(EXISTS ${LAYER_SRC})
+                set(WITH_LAYER_${name}_${arch} 1)
+                list(APPEND ncnn_SRCS "${LAYER_SRC}")
+                list(APPEND ncnn_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/layer/arm/${name}_arm.cpp")
+            else()
+                set(LAYER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/layer/arm/${name}_arm.cpp)
+                if(EXISTS ${LAYER_SRC})
+                    set(WITH_LAYER_${name}_arm 1)
+                    list(APPEND ncnn_SRCS "${LAYER_SRC}")
+                endif()
             endif()
-        endif()
-    endif()
 
-    # generate layer_declaration and layer_registry file
-    if(WITH_LAYER_${name})
-        if(WITH_LAYER_${name}_${arch})
-            string(APPEND layer_declaration
-                "extern Layer* ${class}_${arch}_layer_creator();\n")
-            string(APPEND layer_registry
-                "#if NCNN_STRING\n{\"${class}\",${class}_${arch}_layer_creator},\n#else\n{${class}_${arch}_layer_creator},\n#endif\n")
+            if(WITH_LAYER_${name}_${arch})
+                string(APPEND layer_declaration
+                    "extern Layer* ${class}_${arch}_layer_creator();\n")
+                string(APPEND layer_registry
+                    "#if NCNN_STRING\n{\"${class}\",${class}_${arch}_layer_creator},\n#else\n{${class}_${arch}_layer_creator},\n#endif\n")
+            elseif(WITH_LAYER_${name}_arm)
+                string(APPEND layer_declaration
+                    "extern Layer* ${class}_arm_layer_creator();\n")
+                string(APPEND layer_registry
+                    "#if NCNN_STRING\n{\"${class}\",${class}_arm_layer_creator},\n#else\n{${class}_arm_layer_creator},\n#endif\n")
+            else()
+                string(APPEND layer_declaration
+                    "extern Layer* ${class}_layer_creator();\n")
+                string(APPEND layer_registry
+                    "#if NCNN_STRING\n{\"${class}\",${class}_layer_creator},\n#else\n{${class}_layer_creator},\n#endif\n")
+            endif()
         else()
-            string(APPEND layer_declaration
-                "extern Layer* ${class}_layer_creator();\n")
-            string(APPEND layer_registry
-                "#if NCNN_STRING\n{\"${class}\",${class}_layer_creator},\n#else\n{${class}_layer_creator},\n#endif\n")
-        endif()
+            set(arch arm)
+            set(LAYER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/layer/${arch}/${name}_${arch}.cpp)
+            if(EXISTS ${LAYER_SRC})
+                set(WITH_LAYER_${name}_${arch} 1)
+                list(APPEND ncnn_SRCS "${LAYER_SRC}")
+            endif()
+
+            if(WITH_LAYER_${name}_${arch})
+                string(APPEND layer_declaration
+                    "extern Layer* ${class}_${arch}_layer_creator();\n")
+                string(APPEND layer_registry
+                    "#if NCNN_STRING\n{\"${class}\",${class}_${arch}_layer_creator},\n#else\n{${class}_${arch}_layer_creator},\n#endif\n")
+            else()
+                string(APPEND layer_declaration
+                    "extern Layer* ${class}_layer_creator();\n")
+                string(APPEND layer_registry
+                    "#if NCNN_STRING\n{\"${class}\",${class}_layer_creator},\n#else\n{${class}_layer_creator},\n#endif\n")
+            endif()
+		endif()
+        
     else()
         string(APPEND layer_registry "#if NCNN_STRING\n{\"${class}\",0},\n#else\n{0},\n#endif\n")
     endif()
@@ -168,9 +184,6 @@ include_directories(../ta/include
 target_link_libraries(ncnn teec)
 
 if(NCNN_OPENMP AND OpenMP_CXX_FOUND)
-    if(NCNN_CMAKE_VERBOSE)
-        message("Building with OpenMP")
-    endif()
     target_link_libraries(ncnn PUBLIC OpenMP::OpenMP_CXX)
 endif()
 

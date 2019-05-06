@@ -1,12 +1,3 @@
-#set(CMAKE_TOOLCHAIN_FILE /home/lyq/ncnn2optee/toolchains/host.gcc.toolchain.cmake)
-
-#if(CMAKE_TOOLCHAIN_FILE)
-#set(LIBRARY_OUTPUT_PATH_ROOT ${CMAKE_BINARY_DIR} CACHE PATH "root for library output, set this to change where android libs are compiled to")
-# get absolute path, but get_filename_component ABSOLUTE only refer with source dir, so find_file here :(
-#get_filename_component(CMAKE_TOOLCHAIN_FILE_NAME ${CMAKE_TOOLCHAIN_FILE} NAME)
-#find_file(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE_NAME} PATHS ${CMAKE_SOURCE_DIR} NO_DEFAULT_PATH)
-#message(STATUS "CMAKE_TOOLCHAIN_FILE = ${CMAKE_TOOLCHAIN_FILE}")
-#endif()
 
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Installation Directory")
@@ -32,8 +23,6 @@ option(NCNN_OPENCV "minimal opencv structure emulation" OFF)
 option(NCNN_BENCHMARK "print benchmark information for every layer" OFF)
 option(NCNN_PIXEL "convert and resize from/to image pixel" ON)
 option(NCNN_PIXEL_ROTATE "rotate image pixel orientation" OFF)
-option(NCNN_CMAKE_VERBOSE "print verbose cmake messages" OFF)
-
 # teec option
 option(NCNN_TEEC "run ncnn forward on optee client and optee os" ON)
 
@@ -52,19 +41,8 @@ if(NCNN_OPENMP)
     endif()
 endif()
 
-#if(WIN32)
-#    add_definitions(-D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_DEPRECATE)
-#    add_definitions(-DNOMINMAX)
-#else()
 #    add_definitions(-Wall -Wextra -Wno-unused-function)
-#
 #    add_definitions(-fPIC)
-#    if(CMAKE_BUILD_TYPE MATCHES "(Release|RELEASE|release)")
-#        add_definitions(-Ofast)
-#
-#        add_definitions(-ffast-math)
-#    endif()
-#
 #    if(PI3)
 #        add_definitions(-march=native)
 #        add_definitions(-mfpu=neon)
@@ -75,34 +53,20 @@ endif()
 #    # add_definitions(-march=native)
 #    # add_definitions(-flto)
 #    add_definitions(-fvisibility=hidden -fvisibility-inlines-hidden)
-# endif()
 
-#if(ANDROID)
-    # disable shared library on android
-#    set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS FALSE)
 #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
-#elseif(IOS)
-    # disable shared library on xcode ios
-#    set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS FALSE)
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
-#endif()
 
-##############################################
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -march=armv7-a ${CMAKE_CXX_FLAGS}") # -mfloat-abi=hard -mfpu=neon-vfpv4 #-fopenmp
+set(CMAKE_CXX_FLAGS "-std=c++11 -march=armv7-a ${CMAKE_CXX_FLAGS}")
+#add_definitions(-mfloat-abi=hard)
 #add_definitions(-D__ARM_NEON)
+#-mfloat-abi=hard -mfpu=neon-vfpv4 #-fopenmp
 #add_definitions(-D__ANDROID__)
 
-
-# add_subdirectory(examples)
-# add_subdirectory(benchmark)
 add_subdirectory(src)
-#if(NOT ANDROID AND NOT IOS)
-# add_subdirectory(tools)
-#endif()
 
 set(SRC benchncnn.cpp)
-# set (PROJECT_NAME benchncnn)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
 add_executable (${PROJECT_NAME} ${SRC})

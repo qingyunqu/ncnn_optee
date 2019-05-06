@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "softmax_teec.h"
 #include "teec.h"
 #include "softmax_teec_ta_defines.h"
@@ -45,7 +43,7 @@ int Softmax_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_SOFTMAX,&op,&origin);
 	if (res != TEEC_SUCCESS){
 		dprintf("Softmax_teec::forward failed\n");
-		return Softmax::forward_inplace(bottom_top_blob,opt);
+		return Softmax_arm::forward_inplace(bottom_top_blob,opt);
 	}
 	dprintf("Softmax_teec::forward success\n");
 	return 0;

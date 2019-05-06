@@ -3,11 +3,11 @@
 #ifndef SCALE_TEEC_H
 #define SCALE_TEEC_H
 
-#include "scale.h"
+#include "scale_arm.h"
 
 namespace ncnn {
 
-class Scale_teec :  public Scale
+class Scale_teec :  public Scale_arm
 {
 public:
 	virtual int forward_inplace(std::vector<Mat>& bottom_top_blobs, const Option& opt) const;

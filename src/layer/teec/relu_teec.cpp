@@ -43,7 +43,7 @@ int ReLU_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_RELU,&op,&origin);
 	if(res != TEEC_SUCCESS){
 		dprintf("ReLU_teec:forward failed\n");
-		return ReLU::forward_inplace(bottom_top_blob, opt);
+		return ReLU_arm::forward_inplace(bottom_top_blob, opt);
 	}
 	
 	dprintf("ReLU_teec::forward success\n");

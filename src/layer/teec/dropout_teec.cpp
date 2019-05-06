@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "dropout_teec.h"
 #include "teec.h"
 #include "dropout_teec_ta_defines.h"
@@ -46,7 +44,7 @@ int Dropout_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 	res = TEEC_InvokeCommand(&(ctx.sess),TA_DROPOUT,&op,&origin);
 	if(res != TEEC_SUCCESS){
 		dprintf("Dropout_teec::forward failed\n");
-		return Dropout::forward_inplace(bottom_top_blob,opt);
+		return Dropout_arm::forward_inplace(bottom_top_blob,opt);
 	}
 	
 	dprintf("Dropout_teec::forward success\n");
