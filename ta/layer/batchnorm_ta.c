@@ -89,6 +89,7 @@ TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 			);
 			}
 #else
+			dprintf("neon32\n");
 			if (nn > 0)
         	{
         	asm volatile(

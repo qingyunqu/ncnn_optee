@@ -57,7 +57,7 @@ endif()
 #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
 
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -march=armv7-a ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-std=c++11 -march=armv8-a ${CMAKE_CXX_FLAGS}")
 #add_definitions(-mfloat-abi=hard)
 #add_definitions(-D__ARM_NEON)
 #-mfloat-abi=hard -mfpu=neon-vfpv4 #-fopenmp
