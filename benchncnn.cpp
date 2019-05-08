@@ -73,13 +73,13 @@ void benchmark(const char* comment, void (*init)(ncnn::Net&), void (*run)(const 
 #ifdef _WIN32
     Sleep(10 * 1000);
 #else
-    //sleep(10);
+    sleep(5);
 #endif
 
     // warm up
-    //run(net);
-    //run(net);
-    //run(net);
+    run(net);
+    run(net);
+    run(net);
 
     double time_min = DBL_MAX;
     double time_max = -DBL_MAX;
@@ -371,33 +371,33 @@ int main(int argc, char** argv)
     fprintf(stderr, "powersave = %d\n", ncnn::get_cpu_powersave());
 
     // run
-    //benchmark("squeezenet", squeezenet_init, squeezenet_run);
+    benchmark("squeezenet", squeezenet_init, squeezenet_run);
 
-    //benchmark("mobilenet", mobilenet_init, mobilenet_run);
+    benchmark("mobilenet", mobilenet_init, mobilenet_run);
 
-    //benchmark("mobilenet_v2", mobilenet_v2_init, mobilenet_v2_run);
+    benchmark("mobilenet_v2", mobilenet_v2_init, mobilenet_v2_run);
 
-    //benchmark("shufflenet", shufflenet_init, shufflenet_run);
+    benchmark("shufflenet", shufflenet_init, shufflenet_run);
 
     benchmark("mnasnet", mnasnet_init, mnasnet_run);
 
-    //benchmark("proxylessnasnet", proxylessnasnet_init, proxylessnasnet_run);
+    benchmark("proxylessnasnet", proxylessnasnet_init, proxylessnasnet_run);
 
-    //benchmark("googlenet", googlenet_init, googlenet_run);
+    benchmark("googlenet", googlenet_init, googlenet_run);
 
-    //benchmark("resnet18", resnet18_init, resnet18_run);
+    benchmark("resnet18", resnet18_init, resnet18_run);
 
-    //benchmark("alexnet", alexnet_init, alexnet_run);
+    benchmark("alexnet", alexnet_init, alexnet_run);
 
-    //benchmark("vgg16", vgg16_init, vgg16_run);
+    benchmark("vgg16", vgg16_init, vgg16_run);
 
-    //benchmark("squeezenet-ssd", squeezenet_ssd_init, squeezenet_ssd_run);
+    benchmark("squeezenet-ssd", squeezenet_ssd_init, squeezenet_ssd_run);
 
-    //benchmark("mobilenet-ssd", mobilenet_ssd_init, mobilenet_ssd_run);
+    benchmark("mobilenet-ssd", mobilenet_ssd_init, mobilenet_ssd_run);
 
-    //benchmark("mobilenet-yolo", mobilenet_yolo_init, mobilenet_yolo_run);
+    benchmark("mobilenet-yolo", mobilenet_yolo_init, mobilenet_yolo_run);
 
-    //benchmark("mobilenet-yolov3", mobilenet_yolov3_init, mobilenet_yolov3_run);
+    benchmark("mobilenet-yolov3", mobilenet_yolov3_init, mobilenet_yolov3_run);
 
     return 0;
 }

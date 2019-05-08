@@ -5,6 +5,10 @@
 
 #include <stddef.h>
 
+#if __ARM_NEON
+#include <arm_neon.h>
+#endif
+
 //#include <arm_neon.h>
 
 typedef struct {

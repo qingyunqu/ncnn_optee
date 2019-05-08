@@ -1,9 +1,6 @@
 #include "layer_registered.h"
 #include "batchnorm_teec_ta_defines.h"
 
-//debug
-#include <stdio.h>
-
 TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 {
 	dprintf("batchnorm_ta\n");
@@ -65,7 +62,6 @@ TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 			int remain = size - (nn << 2);
 #if __ARM_NEON
 #if __aarch64__
-			dprintf("neon64\n");
 			if (nn > 0)
 			{
 			asm volatile(
@@ -89,7 +85,6 @@ TEE_Result batchnorm_ta(uint32_t param_types, TEE_Param params[4])
 			);
 			}
 #else
-			dprintf("neon32\n");
 			if (nn > 0)
         	{
         	asm volatile(

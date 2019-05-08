@@ -36,10 +36,6 @@ macro(ncnn_add_layer class)
     if(WITH_LAYER_${name})
         list(APPEND ncnn_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/layer/${name}.cpp")
 
-        #set(arch arm)
-		#add_definitions(-D__ARM_NEON)
-        #set(arch x86)
-
 		# option teec
 		if(NCNN_TEEC)
             set(arch teec)
@@ -91,7 +87,7 @@ macro(ncnn_add_layer class)
                 string(APPEND layer_registry
                     "#if NCNN_STRING\n{\"${class}\",${class}_layer_creator},\n#else\n{${class}_layer_creator},\n#endif\n")
             endif()
-		endif()
+        endif()
         
     else()
         string(APPEND layer_registry "#if NCNN_STRING\n{\"${class}\",0},\n#else\n{0},\n#endif\n")
