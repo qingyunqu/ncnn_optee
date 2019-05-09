@@ -1,6 +1,5 @@
 #include "layer_registered.h"
 #include "relu_teec_ta_defines.h"
-#include <math.h>
 
 TEE_Result relu_ta(uint32_t param_types, TEE_Param params[4])
 {
@@ -42,7 +41,7 @@ TEE_Result relu_ta(uint32_t param_types, TEE_Param params[4])
 
 #if __ARM_NEON
 #if __aarch64__
-            float32x4_t vzero = vdup1_n_f32(0.f);
+            float32x4_t vzero = vdupq_n_f32(0.f);
             for (; nn > 0; nn--){
                 float32x4_t vp = vld1q_f32(ptr);
                 vp = vmaxq_f32(vp, vzero);
@@ -72,7 +71,8 @@ TEE_Result relu_ta(uint32_t param_types, TEE_Param params[4])
 #endif // __aarch64__
 #endif // __ARM_NEON
             for (; remain > 0; remain--){
-                *ptr = max(*ptr, 0.f);
+                if (*ptr < 0.f)
+					*ptr = 0.f;
                 ptr++;
             }
 		}
@@ -93,7 +93,7 @@ TEE_Result relu_ta(uint32_t param_types, TEE_Param params[4])
 #if __ARM_NEON
 #if __aarch64__
             float32x4_t vzero = vdupq_n_f32(0.f);
-            float32x4_t vslope = vdup_n_f32(slope);
+            float32x4_t vslope = vdupq_n_f32(slope);
             for (; nn > 0; nn--){
                 float32x4_t vp = vld1q_f32(ptr);
                 uint32x4_t vlemask = vcleq_f32(vp, vzero);

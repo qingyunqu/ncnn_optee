@@ -1,12 +1,13 @@
 #include "layer_registered.h"
 #include "pooling_teec_ta_defines.h"
 
-#include <stdio.h>
-#include "math.h" // my implementation
+#include "math.h"
 
 TEE_Result pooling_ta(uint32_t param_types, TEE_Param params[4])
 {
 	dprintf("pooling_ta\n");
+    dprintf("pooling_ta failed\n");
+	return TEE_ERROR_BAD_PARAMETERS;
 	/**
 	  * params[0]: void* bottom_blob.data
 	  * params[1]: void* top_blob.data

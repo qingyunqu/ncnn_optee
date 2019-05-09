@@ -1,9 +1,7 @@
 #include "layer_registered.h"
 #include "softmax_teec_ta_defines.h"
 #include <float.h>
-#include "math.h" // my implementation
-
-#include <stdio.h>
+#include "math.h"
 
 TEE_Result softmax_ta(uint32_t param_types, TEE_Param params[4])
 {
@@ -11,6 +9,8 @@ TEE_Result softmax_ta(uint32_t param_types, TEE_Param params[4])
     // sum all value
     // value = value / sum
 	dprintf("softmax_ta\n");
+    dprintf("softmax_ta failed\n");
+	return TEE_ERROR_BAD_PARAMETERS;
 	/**
 	  * params[0]: void* bottom_top_blob.data
 	  * params[1]: Softmax_params* sp;
@@ -22,7 +22,6 @@ TEE_Result softmax_ta(uint32_t param_types, TEE_Param params[4])
 													TEE_PARAM_TYPE_NONE,
 													TEE_PARAM_TYPE_NONE);
 	if(param_types != exp_param_types){
-		printf("error params!\n");
 		return TEE_ERROR_BAD_PARAMETERS;
 	}
 	Softmax_params* sp = (Softmax_params*)params[1].memref.buffer;

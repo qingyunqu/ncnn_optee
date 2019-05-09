@@ -12,7 +12,7 @@ extern "C" {
 
 typedef struct {
 	Mat_C bottom_top_blob;
-	Mat_C scale_blob;
+	Mat_C scale_data;
 	Mat_C bias_data;
 	int scale_data_size;
 	int bias_term;
