@@ -18,7 +18,6 @@ TEE_Result lrn_ta(uint32_t param_types, TEE_Param params[4])
 													TEE_PARAM_TYPE_NONE,
 													TEE_PARAM_TYPE_NONE);
 	if(param_types != exp_param_types){
-		printf("error params!\n");
 		return TEE_ERROR_BAD_PARAMETERS;
 	}
 	LRN_params* lrnp = (LRN_params*)params[1].memref.buffer;
@@ -82,7 +81,4 @@ TEE_Result lrn_ta(uint32_t param_types, TEE_Param params[4])
 	TEE_Free(square_blob);
 	dprintf("softmax_ta success\n");
 	return TEE_SUCCESS;
-	
-	//dprintf("softmax_ta failed\n");
-	//return TEE_ERROR_BAD_PARAMETERS;
 }

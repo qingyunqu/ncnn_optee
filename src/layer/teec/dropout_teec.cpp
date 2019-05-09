@@ -9,7 +9,6 @@ DEFINE_LAYER_CREATOR(Dropout_teec)
 int Dropout_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 {
 	if(scale == 1.f){
-		dprintf("Dropout_teec::1.f\n");
 		return 0;
 	}
 

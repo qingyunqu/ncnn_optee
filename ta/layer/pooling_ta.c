@@ -18,7 +18,6 @@ TEE_Result pooling_ta(uint32_t param_types, TEE_Param params[4])
 													TEE_PARAM_TYPE_MEMREF_INPUT,
 													TEE_PARAM_TYPE_NONE);
 	if (param_types != exp_param_types){
-		printf("error params!\n");	
 		return TEE_ERROR_BAD_PARAMETERS;
 	}
 	Pooling_params* pp = (Pooling_params*)params[2].memref.buffer;

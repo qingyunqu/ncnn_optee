@@ -22,11 +22,6 @@ namespace ncnn {
 
 DEFINE_LAYER_CREATOR(Scale_arm)
 
-int Scale_arm::forward_inplace(std::vector<Mat>& bottom_top_blobs, const Option& opt) const
-{
-	return Scale::forward_inplace(bottom_top_blobs, opt);
-}
-
 int Scale_arm::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 {
     int dims = bottom_top_blob.dims;

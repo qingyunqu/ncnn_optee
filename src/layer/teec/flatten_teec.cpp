@@ -36,9 +36,9 @@ int Flatten_teec::forward(const Mat& bottom_blob, Mat& top_blob, const Option& o
 	  * params[3]: NONE
 	  */
 	op.paramTypes = TEEC_PARAM_TYPES(TEEC_MEMREF_TEMP_INPUT,
-									TEEC_MEMREF_TEMP_INOUT,
-									TEEC_MEMREF_TEMP_INPUT,
-									TEEC_NONE);
+                                     TEEC_MEMREF_TEMP_INOUT,
+                                     TEEC_MEMREF_TEMP_INPUT,
+                                     TEEC_NONE);
 	op.params[0].tmpref.buffer = bottom_blob.data;
 	op.params[0].tmpref.size = bottom_blob.total() * bottom_blob.elemsize;
 	op.params[1].tmpref.buffer = top_blob.data;

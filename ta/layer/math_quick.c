@@ -1,16 +1,16 @@
 // quick implementation of lib "math.h", may lose part of accuracy
 // only support float32
 
-#include "math.h"
+#include "math_quick.h"
 
-float exp(float x){ // quick implementation of exp()
+float exp_quick(float x){ // quick implementation of exp()
 	x = 1.0 + x / 256.0;
   	x *= x; x *= x; x *= x; x *= x;
   	x *= x; x *= x; x *= x; x *= x;
   	return x;
 }
 
-float max(float a, float b){ // may should implement more precisely
+float max_quick(float a, float b){ // may should implement more precisely
 	return a > b ? a : b;
 }
 
@@ -32,7 +32,7 @@ static float pow_f(float x,float y){ // 0=<x<2
 	return powf+1;
 }
 
-float pow(float x, float y){
+float pow_quick(float x, float y){
 	if(x==0 && y!=0)
 		return 0.f;
 	else if(x==0 && y==0)

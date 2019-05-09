@@ -32,8 +32,6 @@ int ReLU_teec::forward_inplace(Mat& bottom_top_blob, const Option& opt) const
 	op.params[0].tmpref.buffer = bottom_top_blob.data;
 	op.params[0].tmpref.size = bottom_top_blob.total() * bottom_top_blob.elemsize;
 
-	dprintf("data size: %d\n",bottom_top_blob.total() * bottom_top_blob.elemsize);
-
 	ReLU_params rlup;
 	init_mat_c_from_mat(&rlup.bottom_top_blob,bottom_top_blob);
 	rlup.slope = slope;

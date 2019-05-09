@@ -4,8 +4,8 @@
 #ifndef MATH_H
 #define MATH_H
 
-float max(float a, float b);
-float exp(float x);
-float pow(float x, float y);
+float max_quick(float a, float b);
+float exp_quick(float x);
+float pow_quick(float x, float y);
 
 #endif // MATH_H

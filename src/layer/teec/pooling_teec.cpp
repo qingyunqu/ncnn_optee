@@ -10,14 +10,23 @@ DEFINE_LAYER_CREATOR(Pooling_teec)
 
 int Pooling_teec::forward(const Mat& bottom_blob, Mat& top_blob, const Option& opt) const
 {
-	// max value in NxN window
+    // max value in NxN window
     // avg value in NxN window
 	dprintf("Pooling_teec::forward\n");
-	
-	if(ctx_flag != 1){
+
+    if(ctx_flag != 1){
 		prepare_tee_session(&ctx);
 		ctx_flag = 1;
 	}
+
+    const int kernel_size = kernel_w;
+    const int stride = stride_w;
+
+    if (kernel_w != kernel_h || stride_w != stride_h)
+    {
+        return Pooling::forward(bottom_blob, top_blob, opt);
+    }
+
 	TEEC_Result res;
 	uint32_t origin;
 	TEEC_Operation op;
@@ -28,7 +37,6 @@ int Pooling_teec::forward(const Mat& bottom_blob, Mat& top_blob, const Option& o
 	int channels = bottom_blob.c;
 	size_t elemsize = bottom_blob.elemsize;
 	
-	//     fprintf(stderr, "Pooling     input %d x %d  pad = %d %d  ksize=%d %d  stride=%d %d\n", bottom_blob.w, bottom_blob.h, pad_w, pad_h, kernel_w, kernel_h, stride_w, stride_h);
 	if (global_pooling)
 	{
 		top_blob.create(channels, elemsize, opt.blob_allocator);
@@ -76,7 +84,6 @@ int Pooling_teec::forward(const Mat& bottom_blob, Mat& top_blob, const Option& o
 	}
 	
 	return Pooling_arm::forward(bottom_blob,top_blob,opt);
-	//return 0;
 }
 
 } // namespace ncnn
